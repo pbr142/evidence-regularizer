@@ -1,0 +1,16 @@
+name:
+  evidence
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - black
+  - cudatoolkit=11.2
+  - cudnn=8.1.0
+  - flake8
+  - jupyterlab>=3.0
+  - pandas
+  - pip
+  - python=3.9
+  - pip:
+    - tensorflow
