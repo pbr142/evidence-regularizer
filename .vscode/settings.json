@@ -1,4 +1,7 @@
 {
     "jupyter.notebookFileRoot": "${workspaceFolder}",
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "terminal.integrated.env.linux": {
+        "PYTHONPATH": "${workspaceFolder}"
+    },
 }

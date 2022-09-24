@@ -9,8 +9,10 @@ dependencies:
   - cudnn=8.1.0
   - flake8
   - jupyterlab>=3.0
+  - mypy
   - pandas
   - pip
   - python=3.9
+  - yaml
   - pip:
     - tensorflow

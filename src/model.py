@@ -1,12 +1,14 @@
-from typing import Optional
-import tensorflow as tf
-from tensorflow import keras
+import pickle
+from pathlib import Path
 from time import time
+from typing import Optional
+
+from tensorflow import keras
 
 from .regularizer import EvidenceRegularizerLayer
 
 
-def fully_connected_network(
+def create_fully_connected_network(
     input_shape: tuple,
     hidden_layers: int,
     hidden_units: int,
@@ -41,7 +43,7 @@ def fully_connected_network(
     return model
 
 
-def compile(model, optimizer=keras.optimizers.Adam(), loss="categorical_crossentropy", metrics=["accuracy"]):
+def compile_model(model, optimizer=keras.optimizers.Adam(), loss="categorical_crossentropy", metrics=["accuracy"]):
     model.compile(
         optimizer=optimizer,
         loss=loss,
@@ -49,17 +51,39 @@ def compile(model, optimizer=keras.optimizers.Adam(), loss="categorical_crossent
     )
 
 
-def fit(model, dtrain, dtest, epochs=10, **kwargs):
+def fit_model(model, dtrain, dtest, epochs=10, **kwargs):
+    fit_start_time = time()
     history = model.fit(dtrain, epochs=epochs, validation_data=dtest, **kwargs)
-    return history
+    fit_end_time = time()
+    return history.history, fit_end_time - fit_start_time
 
 
 def create_and_fit_fully_connected(dtrain, dtest, model_kwargs=dict(), compile_kwargs=dict(), fit_kwargs=dict()):
-    model = fully_connected_network(**model_kwargs)
-    compile(model, **compile_kwargs)
+    model = create_fully_connected_network(**model_kwargs)
+    compile_model(model, **compile_kwargs)
+    history, training_time = fit_model(model, dtrain, dtest, **fit_kwargs)
+    return model, history, training_time
 
-    fit_start_time = time()
-    history = fit(model, dtrain, dtest, **fit_kwargs)
-    fit_end_time = time()
 
-    return model, history, fit_end_time - fit_start_time
+def save_model(model, history, model_kwargs, compile_kwargs, fit_kwargs, path: Path):
+    model_file = path / "model.pb"
+    model.save(model_file)
+    history_file = path / "history.pickle"
+    with open(history_file, "wb") as f:
+        pickle.dump(history, f, protocol=5)
+    cfg = dict(model=model_kwargs, compile=compile_kwargs, fit=fit_kwargs)
+    cfg_file = path / "cfg.yml"
+    with open(cfg_file, "wb") as f:
+        pickle.dump(cfg, f, protocol=0)
+
+
+def load_model(path: Path):
+    model_file = path / "model.pb"
+    model = keras.models.load_model(model_file)
+    history_file = path / "history.pickle"
+    with open(history_file, "rb") as f:
+        history = pickle.load(f)
+    cfg_file = path / "cfg.yml"
+    with open(cfg_file, "rb") as f:
+        cfg = pickle.load(f)
+    return model, history, cfg["model"], cfg["compile"], cfg["fit"]
