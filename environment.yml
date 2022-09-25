@@ -1,5 +1,4 @@
-name:
-  evidence
+name: evidence
 channels:
   - conda-forge
   - defaults
@@ -10,9 +9,10 @@ dependencies:
   - flake8
   - jupyterlab>=3.0
   - mypy
+  - omegaconf
   - pandas
   - pip
   - python=3.9
-  - yaml
+  - pyyaml
   - pip:
-    - tensorflow
+      - tensorflow

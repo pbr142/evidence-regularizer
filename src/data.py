@@ -29,4 +29,3 @@ def load_data_generator(name: str, batch_size: int = 1000, seed=1234):
     dtrain = _data_generator(x_train, y_train, batch_size, seed, name)
     dtest = _data_generator(x_test, y_test, batch_size, seed)
     return dtrain, dtest
-
