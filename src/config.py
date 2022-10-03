@@ -11,14 +11,14 @@ def load_config(config_name: str) -> DictConfig:
 
 
 def parse_config(config: DictConfig):
+    name = config.name
     data = config.get("data", {})
-    data["name"] = config.name
     model = config.model
     compile = config.get("compile", {})
     fit = config.get("fit", {})
     experiments = config.get("experiments", None)
 
-    return data, model, compile, fit, experiments
+    return name, data, model, compile, fit, experiments
 
 
 def parse_experiments(data, model, compile, fit, experiments):

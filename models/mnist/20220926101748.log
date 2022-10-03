@@ -1,0 +1,4 @@
+INFO:root:Data mnist loaded
+INFO:root:training_time: 25.394086599349976
+INFO:tensorflow:Assets written to: models/mnist/20220926101748/model.pb/assets
+INFO:root:Results saved in folder: models/mnist/20220926101748

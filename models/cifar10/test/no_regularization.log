@@ -1,0 +1,25 @@
+INFO:root:Data cifar10 loaded
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 21292.108516693115
+INFO:tensorflow:Assets written to: models/cifar10/test/no_regularization/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/no_regularization
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 533.1420314311981
+INFO:tensorflow:Assets written to: models/cifar10/test/l1/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/l1
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 502.99307012557983
+INFO:tensorflow:Assets written to: models/cifar10/test/l2/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/l2
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 509.5792992115021
+INFO:tensorflow:Assets written to: models/cifar10/test/l1_l2/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/l1_l2
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 482.9925916194916
+INFO:tensorflow:Assets written to: models/cifar10/test/dropout/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/dropout
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 1173.6201837062836
+INFO:tensorflow:Assets written to: models/cifar10/test/evidence_regularizer/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test/evidence_regularizer

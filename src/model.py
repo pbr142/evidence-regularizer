@@ -80,10 +80,15 @@ def save_model(model, history, model_kwargs, compile_kwargs, fit_kwargs, path: P
 def load_model(path: Path):
     model_file = path / "model.pb"
     model = keras.models.load_model(model_file)
-    history_file = path / "history.pickle"
-    with open(history_file, "rb") as f:
-        history = pickle.load(f)
+    history = load_history(path)
     cfg_file = path / "cfg.yml"
     with open(cfg_file, "rb") as f:
         cfg = pickle.load(f)
     return model, history, cfg["model"], cfg["compile"], cfg["fit"]
+
+
+def load_history(path: Path):
+    history_file = path / "history.pickle"
+    with open(history_file, "rb") as f:
+        history = pickle.load(f)
+    return history

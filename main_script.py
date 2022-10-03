@@ -4,6 +4,7 @@ from pathlib import Path
 
 from src.data import load_data_generator
 from src.model import compile_model, create_fully_connected_network, fit_model, save_model
+from src.config import load_config, parse_config, parse_experiments
 
 import logging
 import argparse
@@ -24,27 +25,33 @@ def run_model(dtrain, dtest, model_kwargs, compile_kwargs, fit_kwargs, save_path
 def main(name: str, data: dict, model: dict, compile: dict, fit: dict, run: str):
 
     model_path = Path(f"./models/{name}")
-    if not model_path.exists():
-        os.mkdir(model_path)
     log_file = model_path / (run + ".log")
+    log_path = log_file.resolve().parent
+    log_path.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(filename=log_file, level=logging.INFO)
 
     dtrain, dtest = load_data_generator(name=name, **data)
     logging.info(f"Data {name} loaded")
     save_path = model_path / run
+    save_path.mkdir(parents=True, exist_ok=True)
     run_model(dtrain, dtest, model, compile, fit, save_path)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Fit neural network with different regularizations")
-    parser.add_argument("-c", "--config", type=str)
+    parser.add_argument("-c", "--config", type=str, default="default.yml")
+    parser.add_argument("-r", "--run", type=str, default=None)
     args = parser.parse_args()
 
-    name: str = "cifar10"
-    data: dict = dict()
-    model: dict = dict(hidden_layers=5, hidden_units=100, input_shape=(32, 32, 3), output_units=10)
-    compile: dict = dict()
-    fit: dict = dict(epochs=20)
-    run = datetime.now().strftime("%Y%m%d%H%M%S")
+    config = args.config
+    run = datetime.now().strftime("%Y%m%d%H%M%S") if args.run is None else args.run
 
-    main(name=name, data=data, model=model, compile=compile, fit=fit, run=run)
+    cfg = load_config(config)
+    name, data, model, compile, fit, experiments = parse_config(cfg)
+    if experiments is not None:
+        experiments = parse_experiments(data, model, compile, fit, experiments)
+        for experiment, ex_cfg in experiments.items():
+            run_experiment = run + "/" + experiment
+            main(name=name, **ex_cfg, run=run_experiment)
+    else:
+        main(name, data, model, compile, fit, run=run)

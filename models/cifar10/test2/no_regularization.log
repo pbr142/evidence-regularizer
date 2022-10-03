@@ -1,0 +1,17 @@
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 304.14886498451233
+INFO:tensorflow:Assets written to: models/cifar10/test2/no_regularization/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test2/no_regularization
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 316.2513177394867
+INFO:tensorflow:Assets written to: models/cifar10/test2/l1/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test2/l1
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 313.9453754425049
+INFO:tensorflow:Assets written to: models/cifar10/test2/l2/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test2/l2
+INFO:root:Data cifar10 loaded
+INFO:root:training_time: 311.57338976860046
+INFO:tensorflow:Assets written to: models/cifar10/test2/dropout/model.pb/assets
+INFO:root:Results saved in folder: models/cifar10/test2/dropout
+INFO:root:Data cifar10 loaded
