@@ -1,13 +1,15 @@
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import OmegaConf, DictConfig, ListConfig
+from typing import Union
 from pathlib import Path
 
 CONFIG_PATH = Path("./config").resolve()
 
 
-def load_config(config_name: str) -> DictConfig:
+def load_config(config_name: str) -> Union[DictConfig, ListConfig]:
+    if not config_name.endswith(".yml"):
+        config_name = config_name + ".yml"
     config_path = CONFIG_PATH / config_name
-    config = OmegaConf.load(config_path)
-    return config
+    return OmegaConf.load(config_path)
 
 
 def parse_config(config: DictConfig):
