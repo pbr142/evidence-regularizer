@@ -1,0 +1,22 @@
+
+\subsection{CIFAR10 Results}
+
+We also run tests on the CIFAR-10 data as this data presents a more difficult problem to solve. For this data, we use a network with five hidden dense layers with width 512, 256, 128, 64, and 32, respectively. Every layer uses the tanh activation function. Similar to the other data, we normalize the input data to have a range from -1 to 1, aligned with the value range of the activation function. The networks are trained for 40 epochs using the Adam optimizer and a learning rate of 0.01.
+We compare the unregularized network to a network that uses the Evidence Regularizer in each hidden layer.
+The main motivation of the evidence regularizer is to prevent noisy data from rendering nodes uninformative. To examine the effect of the regularizer for noisy data, we utilize both the clean labels of the CIFAR10 data as well as noisy labels obtained from \cite{wei2022learning}. We use the ''worst label'' as noisy label which have a 40.21\% noise rate (percentage of incorrect labels when compared to the clean labels) labels (full details of how these labels were created are provided in \cite{wei2022learning}). These labels provide the largest challenge to the models.
+
+
+
+The resulting training curves for the cross-entropy loss and the accuracy of the models are shown in figure X
+
+
+
+
+@inproceedings{
+wei2022learning,
+title={Learning with Noisy Labels Revisited: A Study Using Real-World Human Annotations},
+author={Jiaheng Wei and Zhaowei Zhu and Hao Cheng and Tongliang Liu and Gang Niu and Yang Liu},
+booktitle={International Conference on Learning Representations},
+year={2022},
+url={https://openreview.net/forum?id=TBWA6PLJZQm}
+}
